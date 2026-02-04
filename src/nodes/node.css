@@ -1,0 +1,20 @@
+.node{
+    background: white;
+    border:1px solid #ddd;
+    border-radius:8px;
+    min-width: 180px;
+    font-size: 13px;
+}
+
+
+.node-header{
+    padding:6px 10px;
+    font-weight: 600;
+    background: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+
+}
+
+.node-content{
+    padding:10px;
+}
