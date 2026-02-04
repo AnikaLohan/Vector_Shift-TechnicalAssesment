@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+Part 1: Node Abstraction
+In /frontend/src, you will find a folder called nodes. This folder contains JavaScript
+files for four types of nodes (inputs, outputs, LLMs, and text). Each of these nodes
+contains different text, content, and input/output connections (called “Handles”),
+but there is also a significant amount of shared code between nodes.
+Currently, you could create a new node by copying an existing node into a new file
+and making modifications, but this approach ends up rewriting significant amounts of
+code. While this approach is tractable for a small number of nodes, it becomes
+difficult to maintain as the number of nodes increases.
+Your task is to create an abstraction for these nodes that speeds up your ability to
+create new nodes and apply styles across nodes in the future.
+Once you have created your abstraction, make five new nodes of your choosing to
+demonstrate how it works. Don’t spend too long worrying about what the nodes
+actually do; you should use this as an opportunity to showcase the
+flexibility/efficiency of your node abstraction.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Part 2: Styling
+The frontend files you receive do not apply any significant styling. Your task is to style
+the various components into an appealing, unified design. You can use the
+VectorShift’s existing styles as inspiration if you’d like, but you are also free to create
+your own design from the ground-up. You can use whatever React packages/libraries
+that you would like.
 
-## Available Scripts
+Part 3: Text Node Logic
+The Text node included in the /frontend/src/nodes has a field for text input. We
+want to improve the functionality of this text input in two ways.
+First, we want the width and height of the Text node to change as the user enters
+more text into the text input, improving visibility for what the user types in.
+Second, we want to allow users to define variables in their text input. When a user
+enters a valid JavaScript variable name surrounded by double curly brackets (e.g., “{{
+input }}”), we want to create a new Handle on the left side of the Text node that
+corresponds to the variable. For examples of what this should look like, you can try
+using a VectorShift Text node or watching Tutorials using the VectorShift Text node.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Part 4: Backend Integration
+In the /backend folder, you will find a very simple Python/FastAPI backend. Your task
+is to build an integration between the frontend you completed and this simple
+backend.
+On the frontend, you should update /frontend/src/submit.js to send the nodes
+and edges of the pipeline to the /pipelines/parse endpoint in the backend when
+the button is clicked.
+On the backend, you should update the /pipelines/parse endpoint in
+/backend/main.py to calculate the number of nodes and edges in the pipeline. You
+should also check whether the nodes and edges in the pipeline form a directed acyclic
+graph (DAG). The response from this endpoint should be in the following format:
+{num_nodes: int, num_edges: int, is_dag: bool}.
+Once you have updated the button and the endpoint, you should create an alert that
+triggers when the frontend receives a response from the backend. This alert should
+display the values of num_nodes, num_edges, and is_dag in a user-friendly manner.
+The final result should allow a user to create a pipeline, click submit, and then
+receive an alert with the number of nodes/edges as well as whether the pipeline is a
+DAG.
